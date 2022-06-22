@@ -6,9 +6,9 @@ RUN { \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.14/main" ; \
     echo "http://dl-cdn.alpinelinux.org/alpine/v3.14/community" ; \
     } >/etc/apk/repositories
-RUN apk update && \
-    apk add bash tzdata ca-certificates && \
+RUN apk add --no-cache bash tzdata ca-certificates && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     echo "Asia/Tokyo" > /etc/timezone && \
     apk del tzdata && \
-    update-ca-certificates
+    update-ca-certificates && \
+    rm -rf /var/cache/apk/*
