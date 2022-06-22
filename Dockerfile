@@ -1,12 +1,14 @@
-FROM alpine:3.14
+FROM alpine:edge
 # -------------- OS -----------------------
 RUN { \
-    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/v3.14/main/" ; \
-    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/v3.14/community/" ; \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v3.14/main" ; \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v3.14/community" ; \
+    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/edge/main/" ; \
+    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/edge/community/" ; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" ; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" ; \
     } >/etc/apk/repositories
-RUN apk add --no-cache bash tzdata ca-certificates && \
+RUN apk update && \
+	apk upgrade && \
+	apk add --no-cache bash tzdata ca-certificates && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     echo "Asia/Tokyo" > /etc/timezone && \
     apk del tzdata && \
