@@ -1,14 +1,23 @@
 FROM alpine:3.17
+
 # -------------- OS -----------------------
 RUN { \
-    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/v3.17/main/" ; \
-    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/v3.17/community/" ; \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v3.17/main" ; \
-    echo "http://dl-cdn.alpinelinux.org/alpine/v3.17/community" ; \
+    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/edge/main/" ; \
+    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/edge/community/" ; \
+    echo "http://ftp.tsukuba.wide.ad.jp/Linux/alpine/edge/testing/" ; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" ; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" ; \
+    echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing" ; \
     } >/etc/apk/repositories
-RUN apk add --no-cache bash tzdata ca-certificates && \
-    cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
-    echo "Asia/Tokyo" > /etc/timezone && \
+
+ENV TZ="Asia/Tokyo"
+
+RUN apk update && \
+	apk upgrade && \
+	apk add --no-cache bash tzdata ca-certificates && \
+    cp "/usr/share/zoneinfo/$TZ" /etc/localtime && \
+    echo "$TZ" > /etc/timezone && \
     apk del tzdata && \
     update-ca-certificates && \
     rm -rf /var/cache/apk/*
+
