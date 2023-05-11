@@ -1,5 +1,4 @@
 FROM alpine:3.17
-
 ENV TZ="Asia/Tokyo"
 ENV ALPINE="v3.17"
 ENV CUSTOM_REP="http://ftp.tsukuba.wide.ad.jp/Linux/alpine"
@@ -12,11 +11,20 @@ RUN { \
     echo "http://dl-cdn.alpinelinux.org/alpine/$ALPINE/community" ; \
     } >/etc/apk/repositories
 
+COPY inputrc.patch /etc/inputrc.patch
+
 RUN echo "Setting Time Zone to: $TZ" && \
-    apk update && \
-    apk upgrade && \
-    apk add --no-cache bash tzdata ca-certificates && \
+	apk update && \
+	apk upgrade && \
+	apk add --no-cache bash tzdata ca-certificates patch && \
     cp "/usr/share/zoneinfo/$TZ" /etc/localtime && \
     echo "$TZ" > /etc/timezone && \
     update-ca-certificates && \
+	patch -u /etc/inputrc -i /etc/inputrc.patch && \
+	rm /etc/inputrc.patch && \
+	apk del patch && \
     rm -rf /var/cache/apk/*
+
+RUN echo "alias l='ls -lh'" >> /root/.bashrc && \
+	echo "alias ll='ls -lAh'" >> /root/.bashrc && \
+	echo "alias vim='vi'" >> /root/.bashrc
