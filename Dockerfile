@@ -9,6 +9,5 @@ RUN { \
 RUN apk add --no-cache bash tzdata ca-certificates && \
     cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime && \
     echo "Asia/Tokyo" > /etc/timezone && \
-    apk del tzdata && \
     update-ca-certificates && \
     rm -rf /var/cache/apk/*
