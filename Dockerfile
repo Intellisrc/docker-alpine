@@ -1,7 +1,7 @@
-FROM alpine:3.19
+FROM alpine:3.20
 
 ENV TZ="Asia/Tokyo"
-ENV ALPINE="v3.19"
+ENV ALPINE="v3.20"
 ENV CUSTOM_REP="http://ftp.tsukuba.wide.ad.jp/Linux/alpine"
 
 # -------------- OS -----------------------
