@@ -2,7 +2,7 @@ FROM alpine:edge
 
 ENV TZ="Asia/Tokyo"
 ENV ALPINE="edge"
-ENV CUSTOM_REP="http://ftp.tsukuba.wide.ad.jp/Linux/alpine"
+ENV CUSTOM_REP="http://ap.edge.kernel.org/alpine/"
 
 # -------------- OS -----------------------
 RUN { \
