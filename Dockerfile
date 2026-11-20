@@ -1,7 +1,7 @@
-FROM alpine:3.23
+FROM alpine:3.24
 
 ENV TZ="Asia/Tokyo"
-ENV ALPINE="v3.23"
+ENV ALPINE="v3.24"
 ENV CUSTOM_REP="http://ap.edge.kernel.org/alpine/"
 
 # -------------- OS -----------------------
